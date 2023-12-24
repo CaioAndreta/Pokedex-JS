@@ -14,7 +14,7 @@ function buildPokemonPage(list) {
         card.appendChild(pokemonName);
         
         linkCard.setAttribute('href', element.url);
-        pokemonImage.setAttribute('src', 'assets/images/001.png');
+        pokemonImage.setAttribute('src', `assets/images/${String(getPokemonIdByURL(element.url)).padStart(3, 0)}.png`);
         pokemonName.innerText = element.name;
 
         container.appendChild(linkCard);
@@ -22,10 +22,16 @@ function buildPokemonPage(list) {
 
 }
 
+function getPokemonIdByURL(url) {
+    const regex = /pokemon\/(\d+)\//;
+    console.log(url.match(regex)[1])
+    return url.match(regex)[1];
+};
+
 async function getPokemonByPageAndNumberOfResults(page, numberOfResults) {
     const response = await fetch(url + `pokemon?offset=${(page - 1)*numberOfResults}&limit=${numberOfResults}`);
     const data = await response.json();
-    console.log(data.results);
+    console.log(data);
     buildPokemonPage(data.results);
 }
 
