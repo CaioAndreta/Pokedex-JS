@@ -4,17 +4,16 @@ function buildPokemonPage(list) {
     const container = document.querySelector(".results-container");
     list.forEach((element) => {
         const linkCard = document.createElement("a");
-        const card = document.createElement("div");
         const pokemonImage = document.createElement("img");
         const pokemonName = document.createElement("h1");
+        const imgPath = `assets/images/${String(getPokemonIdByURL(element.url)).padStart(3, 0)}.png`;
         
         linkCard.classList.add('pokemon-card');
-        linkCard.appendChild(card);
-        card.appendChild(pokemonImage);
-        card.appendChild(pokemonName);
-        
+        linkCard.appendChild(pokemonImage);
         linkCard.setAttribute('href', element.url);
-        pokemonImage.setAttribute('src', `assets/images/${String(getPokemonIdByURL(element.url)).padStart(3, 0)}.png`);
+        linkCard.appendChild(pokemonName);
+        
+        pokemonImage.setAttribute('src', imgPath);
         pokemonName.innerText = element.name;
 
         container.appendChild(linkCard);
