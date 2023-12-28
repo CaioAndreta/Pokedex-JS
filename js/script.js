@@ -2,6 +2,7 @@ const url = "https://pokeapi.co/api/v2/";
 const pokemonImgURL =
   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
 let nextPageURL;
+const params = new URLSearchParams(window.location.search);
 
 function showSpinner() {
   console.log('mostrou')
@@ -22,14 +23,15 @@ function buildPokemonPage(data) {
 
   nextPageURL = data.next;
   results.forEach((element) => {
+    const pokemonId = getPokemonIdByURL(element.url);
     const linkCard = document.createElement("a");
     const pokemonImage = document.createElement("img");
     const pokemonName = document.createElement("h1");
-    const imgPath = pokemonImgURL + getPokemonIdByURL(element.url) + ".png";
+    const imgPath = pokemonImgURL + pokemonId + ".png";
 
     linkCard.classList.add("pokemon-card");
     linkCard.appendChild(pokemonImage);
-    linkCard.setAttribute("href", element.url);
+    linkCard.setAttribute("href", `pokemon-details.html?id=${pokemonId}`);
     linkCard.appendChild(pokemonName);
 
     pokemonImage.setAttribute("src", imgPath);
@@ -60,16 +62,3 @@ async function loadMorePokemon(url) {
   buildPokemonPage(data);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("carregou tudo");
-
-  document.addEventListener("scroll", () => {
-    const scrollableHeight = document.body.scrollHeight - window.innerHeight;
-    if (window.scrollY >= scrollableHeight) {
-      loadMorePokemon(nextPageURL);
-    }
-  });
-  console.log(nextPageURL);
-});
-
-getPokemonByNumberOfResults(20);

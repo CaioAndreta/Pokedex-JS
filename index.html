@@ -3,12 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/global.css" />
     <title>Pokémon</title>
+    <script src="js/script.js"></script>
+    <script>
+      getPokemonByNumberOfResults(20);
+      document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("scroll", () => {
+          const scrollableHeight =
+            document.body.scrollHeight - window.innerHeight;
+          if (window.scrollY >= scrollableHeight) {
+            loadMorePokemon(nextPageURL);
+          }
+        });
+      });
+    </script>
   </head>
   <body>
     <div class="results-container"></div>
-    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-    <script src="js/script.js"></script>
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
   </body>
 </html>
