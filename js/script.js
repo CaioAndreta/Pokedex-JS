@@ -5,15 +5,15 @@ let nextPageURL;
 const params = new URLSearchParams(window.location.search);
 
 function showSpinner() {
-  console.log('mostrou')
+  console.log("mostrou");
   const spinner = document.querySelector(".lds-ring");
-  spinner.style.display = 'block';
+  spinner.style.display = "block";
 }
 
 function hideSpinner() {
-  console.log('escondeu')
+  console.log("escondeu");
   const spinner = document.querySelector(".lds-ring");
-  spinner.style.display = 'none';
+  spinner.style.display = "none";
 }
 
 function buildPokemonPage(data) {
@@ -52,7 +52,6 @@ function getPokemonIdByURL(url) {
 async function getPokemonByNumberOfResults(numberOfResults) {
   const response = await fetch(url + `pokemon?limit=${numberOfResults}`);
   const data = await response.json();
-  console.log(data);
   buildPokemonPage(data);
 }
 
@@ -62,3 +61,8 @@ async function loadMorePokemon(url) {
   buildPokemonPage(data);
 }
 
+async function getPokemonInfo(pokemonId) {
+  const response = await fetch(url + `pokemon/${pokemonId}`);
+  const data = await response.json();
+  return data;
+}
