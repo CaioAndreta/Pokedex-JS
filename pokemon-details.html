@@ -20,10 +20,13 @@
       getPokemonInfo(pokemonId).then((response) => {
         console.log(response);
         const pokemonName = response.name;
+        const pokemonImg = response.sprites.other["official-artwork"].front_default;
   
         const pokemonNameElement = document.querySelector('.pokemon-info h1');
+        const pokemonImgElement = document.querySelector('.pokemon-info img');
   
         pokemonNameElement.innerText = pokemonName;
+        pokemonImgElement.setAttribute('src', pokemonImg);
       });
     </script>
   </body>
